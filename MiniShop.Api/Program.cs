@@ -63,11 +63,6 @@ var app = builder.Build();
 app.UseExceptionHandler();
 app.UseSerilogRequestLogging();
 app.UseStatusCodePages();
-using (var scope = app.Services.CreateScope())
-{
-    await scope.ServiceProvider.GetRequiredService<DataSeeder>().SeedAsync();
-    await MongoIndexes.EnsureAsync(scope.ServiceProvider.GetRequiredService<IMongoDatabase>());
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
